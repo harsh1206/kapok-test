@@ -39,6 +39,12 @@ const postReducer = (state = initState, action) => {
       case "REMOVE_DOWNVOTE_POST_ERR":
         console.log("Remove Downvote from Post err", action.err);
         break;
+      case "COMMENT":
+        console.log("Comment added", action.post)
+        break;
+      case "COMMENT_ERR":
+        console.log("Comment err", action.err)  
+        break;
       default:
         break;
     }

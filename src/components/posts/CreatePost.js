@@ -23,8 +23,6 @@ export class CreatePost extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.createPost(this.state);
-        //console.log("hi i am good boy");
-        // this.props.addPost(); 
         this.props.history.push('/');
     }
 

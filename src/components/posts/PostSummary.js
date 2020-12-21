@@ -4,9 +4,6 @@ import {removeUpvoteFromPost,removeDownvoteFromPost} from '../../store/actions/p
 import { connect } from "react-redux";
 
 const PostSummary = ({post,upvotePost,downvotePost,removeUpvoteFromPost,removeDownvoteFromPost}) => {
-    
-  
-
     const handleUpvote = (e) => {
       
       e.preventDefault();
@@ -63,7 +60,7 @@ const PostSummary = ({post,upvotePost,downvotePost,removeUpvoteFromPost,removeDo
           </span>
           <p>{post.content}</p>
           <p className="grey-text">{post.authorFirstName} - Stuff here</p>
-          <span className="right">47</span>
+          <span className="right">{Object.keys(post.comment).length}</span>
           <i className="material-icons right">forum</i>
           <span className ={`${post.isDownvoted ? "blue-text" : "" }`} onClick={handleDownvote}><i className="material-icons right">arrow_downward</i></span>
           <span className={`${post.isUpvoted ? "red-text" : "" }`} onClick={handleUpvote}><i className="material-icons right">arrow_upward</i></span>

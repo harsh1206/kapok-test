@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import Comment from '../comments/createComment'
+import CommentList from '../comments/commentList'
 
 function PostDetails(props) {
-    const { post } = props;
-    // console.log(post);
-   
 
+    const { post } = props;
     if (post) {
         return (
           <div className="container section post-details">
@@ -23,10 +23,10 @@ function PostDetails(props) {
                   Posted by {post.authorFirstName} {post.authorLastName} in{" "}
                   {post.branchId}
                 </div>
-
-                {/* <div>{post.createdAt}</div> */}
               </div>
             </div>
+            <Comment postId={props.match.params.postId}/>
+            <CommentList comment={props.post.comment}/>
           </div>
         );
     } else {

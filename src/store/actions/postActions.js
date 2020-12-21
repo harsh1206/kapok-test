@@ -3,12 +3,7 @@ export const createPost = (post) => {
 
         const firestore = getFirestore();
         const profile = getState().firebase.profile; 
-       const authorId = getState().firebase.auth.uid;
-          // const userRef = firestore.collection('users').doc(post.userId);
-
-        // const addPost = await userRef.update({
-        //     posts : firestore.FieldValue.arrayUnion()
-        // })
+        const authorId = getState().firebase.auth.uid;
 
        firestore
          .collection("posts")
@@ -21,7 +16,11 @@ export const createPost = (post) => {
            upvotes:[""],
            downvotes:[""],
            isUpvoted: false,
-           isDownvoted : false
+           isDownvoted : false,
+           comment: null,
+           userCommented: null,
+           isCommented : false,
+           commentCreatedAt: null
          })
          .then(() => {
            dispatch({ type: "CREATE_POST", post: post });
@@ -29,11 +28,31 @@ export const createPost = (post) => {
          .catch((err) => {
            dispatch({ type: "CREATE_POST_ERROR", err: err });
          });
-
-    
-      
-        
     }
+};
+
+export const createComment = (post) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+
+      const firestore = getFirestore();
+      const firebase = getFirebase();
+
+     firestore
+     .collection("posts")
+     .doc(post.id)
+     .update({
+       comment : firebase.firestore.FieldValue.arrayUnion(post.comment),
+       userCommented: firebase.firestore.FieldValue.arrayUnion(post.userId),
+       commentCreatedAt: firebase.firestore.FieldValue.arrayUnion(new Date()),
+       isCommented : true,
+     })
+     .then(() => {
+       dispatch({ type: "COMMENT", post: post });
+     })
+     .catch((err) => {
+       dispatch({ type: "COMMENT_ERR", err: err });
+     });
+  }
 };
 
 export const upvotePost = (post) =>{
@@ -58,12 +77,7 @@ export const upvotePost = (post) =>{
         .catch((err) => {
           dispatch({ type: "UPVOTE_POST_ERR", err: err });
         });
-
-
-
-
    }
-
 }
 
 export const downvotePost = (post) => {

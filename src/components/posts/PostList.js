@@ -10,7 +10,7 @@ const PostList = ({ posts }) => {
                 posts && posts.map(post => {
                     return (
                         <Link to={'/b/' + post.branchId + '/p/' + post.id}>
-                            <PostSummary post={post} key={post.id} />
+                            <PostSummary post={post}  key={post.id} />
                         </Link>
                     )
                 })
