@@ -31,30 +31,6 @@ export const createPost = (post) => {
     }
 };
 
-export const createComment = (post) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-
-      const firestore = getFirestore();
-      const firebase = getFirebase();
-
-     firestore
-     .collection("posts")
-     .doc(post.id)
-     .update({
-       comment : firebase.firestore.FieldValue.arrayUnion(post.comment),
-       userCommented: firebase.firestore.FieldValue.arrayUnion(post.userId),
-       commentCreatedAt: firebase.firestore.FieldValue.arrayUnion(new Date()),
-       isCommented : true,
-     })
-     .then(() => {
-       dispatch({ type: "COMMENT", post: post });
-     })
-     .catch((err) => {
-       dispatch({ type: "COMMENT_ERR", err: err });
-     });
-  }
-};
-
 export const upvotePost = (post) =>{
 
    return (dispatch,getState,{getFirebase,getFirestore}) => {

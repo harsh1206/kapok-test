@@ -6,6 +6,7 @@ import PostDetails from './components/posts/PostDetails'
 import SignIn from "./components/auth/SignIn.js";
 import SignUp from "./components/auth/SignUp.js";
 import CreatePost from "./components/posts/CreatePost.js";
+import commentFromFirestore from "./components/comments/commentFromFirestore.js";
 
 class App extends Component {
   render() {

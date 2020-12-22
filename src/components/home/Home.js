@@ -12,23 +12,6 @@ class Home extends Component {
     const { posts } = this.props;
     return (
       <div className="dashboard container">
-        {/* <div class="row">
-          <Link to="/createPost">
-          <form class="col s12">
-            <div class="row">
-              <div class="input-field col s6 post-form">
-                <i class="material-icons prefix">mode_edit</i>
-                <textarea
-                  id="icon_prefix2"
-                  class="materialize-textarea"
-                ></textarea>
-                <label for="icon_prefix2">Write a post or start a discussion</label>
-              </div>
-            </div>
-          </form>
-          </Link>
-        </div> */}
-
         <div className="row">
 
           <div className="col s12 m6">
@@ -56,7 +39,7 @@ class Home extends Component {
 }
 
 const mapStatetoProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return {
     posts: state.firestore.ordered.posts,
   };
@@ -64,5 +47,7 @@ const mapStatetoProps = (state) => {
 
 export default compose(
   connect(mapStatetoProps),
-  firestoreConnect(() => ["posts"])
+  firestoreConnect([
+    { collection: 'posts', orderBy: ['createdAt', 'desc'] }
+])
 )(Home);

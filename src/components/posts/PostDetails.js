@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import Comment from '../comments/createComment'
 import CommentList from '../comments/commentList'
+import CommentFromFirestore from '../comments/commentFromFirestore'
 
 function PostDetails(props) {
 
@@ -26,7 +27,7 @@ function PostDetails(props) {
               </div>
             </div>
             <Comment postId={props.match.params.postId}/>
-            <CommentList comment={props.post.comment}/>
+            <CommentFromFirestore postId={props.match.params.postId}/>
           </div>
         );
     } else {
@@ -41,12 +42,21 @@ function PostDetails(props) {
 }
 
 const mapStatetoProps = (state, ownProps) => {
-    const postId = ownProps.match.params.postId;
-    const posts = state.firestore.data.posts;
-    const post = posts ? posts[postId] : null;
-    return {
-        post: post
-    }
+
+  console.log("Posts State")
+  console.log(state)
+  console.log("Posts ownProps")
+  console.log(ownProps)
+  console.log("ownProps.match.params.postId")
+  console.log(ownProps.match.params.postId)
+  console.log("state.firestore.data.posts")
+  console.log(state.firestore.data.posts)
+  const postId = ownProps.match.params.postId;
+  const posts = state.firestore.data.posts;
+  const post = posts ? posts[postId] : null;
+  return {
+      post: post
+  }
 };
 
 export default compose(

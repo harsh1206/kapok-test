@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PostSummary from './PostSummary'
 
 const PostList = ({ posts }) => {
+    console.log(posts)
     return (
         <div className="project-list section">
 

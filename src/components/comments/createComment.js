@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import { createComment } from '../../store/actions/postActions';
+import { createComment } from '../../store/actions/commentActions';
 import { connect } from 'react-redux';
 
 class CreateComment extends Component{
     state = {
-        comment: '',
+        content: '',
         userId: this.props.auth.uid,
-        id: this.props.postId
+        postId: this.props.postId
     }
     handleChange = (e) => {
         this.setState({
-            comment: e.target.value     
+            content: e.target.value     
         });
     }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.createComment(this.state);
+        e.target.reset();
         // this.props.history.push('/');
     }
 
@@ -46,7 +47,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        createComment: (post) => dispatch(createComment(post))
+        createComment: (comment) => dispatch(createComment(comment))
     }
 }
 
