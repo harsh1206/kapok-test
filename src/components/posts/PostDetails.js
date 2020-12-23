@@ -42,15 +42,6 @@ function PostDetails(props) {
 }
 
 const mapStatetoProps = (state, ownProps) => {
-
-  console.log("Posts State")
-  console.log(state)
-  console.log("Posts ownProps")
-  console.log(ownProps)
-  console.log("ownProps.match.params.postId")
-  console.log(ownProps.match.params.postId)
-  console.log("state.firestore.data.posts")
-  console.log(state.firestore.data.posts)
   const postId = ownProps.match.params.postId;
   const posts = state.firestore.data.posts;
   const post = posts ? posts[postId] : null;

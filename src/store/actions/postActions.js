@@ -13,14 +13,11 @@ export const createPost = (post) => {
            authorLastName: profile.lastName,
            createdAt: new Date(),
            authorId:authorId,
-           upvotes:[""],
-           downvotes:[""],
+           upvotes: null,
+           downvotes: null,
            isUpvoted: false,
            isDownvoted : false,
-           comment: null,
-           userCommented: null,
-           isCommented : false,
-           commentCreatedAt: null
+           numberOfComment: null,
          })
          .then(() => {
            dispatch({ type: "CREATE_POST", post: post });
@@ -30,6 +27,36 @@ export const createPost = (post) => {
          });
     }
 };
+
+
+
+export const numberOfCommentFunction = (post) =>{
+
+  return (dispatch,getState,{getFirebase,getFirestore}) => {
+
+     const firestore = getFirestore();
+     const firebase = getFirebase();
+     const userId = getState().firebase.auth.uid;
+
+     console.log('post')
+     console.log(post)
+     
+     console.log(post);
+     firestore
+       .collection("posts")
+       .doc(post.id)
+       .update({
+        // numberOfCommentFunction
+       })
+       .then(() => {
+         dispatch({ type: "NUMBER_OF_COMMENT", post: post });
+       })
+       .catch((err) => {
+         dispatch({ type: "NUMBER_OF_COMMENT_ERR", err: err });
+       });
+  }
+}
+
 
 export const upvotePost = (post) =>{
 

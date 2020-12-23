@@ -45,6 +45,13 @@ const postReducer = (state = initState, action) => {
       case "COMMENT_ERR":
         console.log("Comment err", action.err)  
         break;
+      case "NUMBER_OF_COMMENT":
+        console.log("Number of comment", action.err)  
+        break;
+      case "NUMBER_OF_COMMENT_ERR":
+        console.log("Number of comment err", action.err)  
+        break;  
+          
       default:
         break;
     }

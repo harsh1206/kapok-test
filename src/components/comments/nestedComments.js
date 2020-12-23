@@ -2,15 +2,25 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import CommentList from '../comments/commentList'
+import CommentSummary from '../comments/commentSummary'
 
 function CommentFromFirestore(props) {
 
-    const { comm } = props;
-    if (comm) {
+    const { comment } = props;
+    if (comment) {
         return (
           <div className="container section post-details">
-              <CommentList comment={comm} postId={props.postId} />
+              <div className="project-list section">
+                {
+                    comment && comment.map(comment => { 
+                        console.log()
+                        if(props.commentId === comment.parentId)
+                            return (
+                                <CommentSummary comment={comment} key={comment.id}/>
+                            )
+                    })
+                }
+                </div>
           </div>
         );
     } else {
@@ -27,7 +37,7 @@ function CommentFromFirestore(props) {
 const mapStatetoProps = (state) => {
     const comments = state.firestore.ordered.comments;
     return {
-        comm: comments
+        comment: comments
     }
 };
 export default compose(

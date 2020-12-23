@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { createComment } from '../../store/actions/commentActions';
+import { numberOfCommentFunction } from '../../store/actions/postActions';
 import { connect } from 'react-redux';
 
 class CreateComment extends Component{
     state = {
         content: '',
         userId: this.props.auth.uid,
-        postId: this.props.postId
+        postId: this.props.postId,
+        parentId: this.props.parentId ? this.props.parentId : null
     }
     handleChange = (e) => {
         this.setState({
@@ -17,7 +19,6 @@ class CreateComment extends Component{
         e.preventDefault();
         this.props.createComment(this.state);
         e.target.reset();
-        // this.props.history.push('/');
     }
 
     render(){
@@ -47,7 +48,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        createComment: (comment) => dispatch(createComment(comment))
+        createComment: (comment) => dispatch(createComment(comment)),
+        numberOfCommentFunction: (comment) => numberOfCommentFunction(comment)
     }
 }
 
