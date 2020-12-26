@@ -7,6 +7,8 @@ import SignIn from "./components/auth/SignIn.js";
 import SignUp from "./components/auth/SignUp.js";
 import CreatePost from "./components/posts/CreatePost.js";
 import commentFromFirestore from "./components/comments/commentFromFirestore.js";
+import createBranch from './components/branches/createBranch'
+import postListingBranch from './components/branches/postListingBranch'
 
 class App extends Component {
   render() {
@@ -18,7 +20,8 @@ class App extends Component {
             <Route exact path= '/' component={Home} />
             <Route path='/createPost' component={CreatePost} />
             <Route path='/b/:branchId/p/:postId' component= {PostDetails} />
-            {/* {() => <PostDetails name={this.props.name} />} */}
+            <Route path='/createBranch' component={createBranch}/>
+            <Route exact path='/:branchId' component={postListingBranch}/>
             <Route path='/signin' component={SignIn} />
             <Route path='/signup' component={SignUp} />
           </Switch>

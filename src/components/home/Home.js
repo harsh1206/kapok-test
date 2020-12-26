@@ -10,6 +10,9 @@ class Home extends Component {
   render() {
     // console.log(this.props);
     const { posts } = this.props;
+    const { branches } = this.props;
+
+    console.log(branches);
     return (
       <div className="dashboard container">
         <div className="row">
@@ -30,7 +33,7 @@ class Home extends Component {
             <PostList posts={posts} />
           </div>
           <div className="col s12 m5 offset-m1">
-            <BranchRecommendations />
+            <BranchRecommendations branches={branches}/>
           </div>
         </div>
       </div>
@@ -39,15 +42,17 @@ class Home extends Component {
 }
 
 const mapStatetoProps = (state) => {
-  // console.log(state);
+  console.log(state);
   return {
     posts: state.firestore.ordered.posts,
+    branches: state.firestore.ordered.branches,
   };
 };
 
 export default compose(
   connect(mapStatetoProps),
   firestoreConnect([
-    { collection: 'posts', orderBy: ['createdAt', 'desc'] }
+    { collection: 'posts', orderBy: ['createdAt', 'desc']},
+    {collection: 'branches'}
 ])
 )(Home);
