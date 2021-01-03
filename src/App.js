@@ -21,9 +21,9 @@ class App extends Component {
             <Route path='/createPost' component={CreatePost} />
             <Route path='/b/:branchId/p/:postId' component= {PostDetails} />
             <Route path='/createBranch' component={createBranch}/>
-            <Route exact path='/:branchId' component={postListingBranch}/>
             <Route path='/signin' component={SignIn} />
             <Route path='/signup' component={SignUp} />
+            <Route path='/:branchId' component={postListingBranch}/>
           </Switch>
         </div>
       </BrowserRouter>
