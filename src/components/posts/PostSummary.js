@@ -4,7 +4,7 @@ import {removeUpvoteFromPost,removeDownvoteFromPost} from '../../store/actions/p
 import { connect } from "react-redux";
 import moment from 'moment';
 
-const PostSummary = ({post,upvotePost,downvotePost,removeUpvoteFromPost,removeDownvoteFromPost}) => {
+const PostSummary = ({post,branchesToPost,upvotePost,downvotePost,removeUpvoteFromPost,removeDownvoteFromPost}) => {
 
   const handleUpvote = (e) => {
       
@@ -54,16 +54,17 @@ const PostSummary = ({post,upvotePost,downvotePost,removeUpvoteFromPost,removeDo
 
     }
 
+    const branchDetails = branchesToPost ? branchesToPost[post.branchId] : null;
+    
+
     return (
       <div className="card  z-depth-3 post-summary">
         <div className="card-content grey-text text-darken-3">
           <span className="card-title">
-            [{post.branchId}] - {post.title}
+            [{branchDetails?.title}] - {post.title}
           </span>
           <p>{post.content}</p>
           <p className="grey-text">{post.authorFirstName} - {moment(post.createdAt.toDate().toString()).fromNow()} </p>
-          {/* {moment(post.createdAt.toDate().toString()).fromNow()} */}
-          {/* <span className="right">{Object.keys(post.comment).length}</span> */}
           <i className="material-icons right">forum</i>
           <span className ={`${post.isDownvoted ? "blue-text" : "" }`} onClick={handleDownvote}><i className="material-icons right">arrow_downward</i></span>
           <span className="right">{post.downvotes ? Object.keys(post.downvotes).length : null}</span>

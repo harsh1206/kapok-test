@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PostList from "../posts/PostList";
-import { hot } from 'react-hot-loader/root';
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -9,16 +8,11 @@ import { Link } from "react-router-dom";
 
 class PostListingBranch extends Component {
   render() {
-// function PostListingBranch(props) {
 
-    // console.log(this.props);
     const { posts } = this.props;
-    const { branch } = this.props
-    // const { branches } = this.props;
-    console.log('branch')
-    console.log(branch)
-    console.log('props')
-    console.log(this.props)
+    const { branch } = this.props;
+    const { branchesToPost } = this.props
+
     return (
       <div className="dashboard container">
         <div className="row">
@@ -45,7 +39,7 @@ class PostListingBranch extends Component {
             </Link>
           </div>
         
-          <PostList posts={posts} />
+          <PostList posts={posts} branchesToPost={branchesToPost} branch={branch}/>
           </div>
         
       </div>
@@ -55,30 +49,23 @@ class PostListingBranch extends Component {
 }
 
 const mapStatetoProps = (state, ownprops) => {
-  console.log("State")
-  console.log(state)
-  console.log("OwnProps")
-  console.log(state)
-
   const posts = state.firestore.ordered.posts;
   const branchId = ownprops.match.params.branchId;
   const branches = state.firestore.data.branches;
   const branch = branches ? branches[branchId] : null;
-  console.log("branches")
-  console.log(branches)
     return { 
-      //  auth: state.firebase.auth,
+       auth: state.firebase.auth,
         posts: posts,
-        branch: branch
+        branch: branch,
+        branchesToPost: branches
     }
 };
 
 export default compose(
-  // hot,
   connect(mapStatetoProps),
   firestoreConnect([
     { collection: 'branches' }, { collection: 'posts', orderBy: ['createdAt', 'desc'] }
 ])
-)(hot(PostListingBranch));
+)(PostListingBranch);
 
 

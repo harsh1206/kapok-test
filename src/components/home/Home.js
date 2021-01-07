@@ -11,8 +11,8 @@ class Home extends Component {
     // console.log(this.props);
     const { posts } = this.props;
     const { branches } = this.props;
+    const { branchesToPost } = this.props;
 
-    console.log(branches);
     return (
       <div className="dashboard container">
         <div className="row">
@@ -30,7 +30,7 @@ class Home extends Component {
               </Link>
             </div>
         
-            <PostList posts={posts} />
+            <PostList posts={posts} branchesToPost={branchesToPost}/>
           </div>
           <div className="col s12 m5 offset-m1">
             <BranchRecommendations branches={branches}/>
@@ -42,10 +42,11 @@ class Home extends Component {
 }
 
 const mapStatetoProps = (state) => {
-  console.log(state);
   return {
+    auth: state.firebase.auth,
     posts: state.firestore.ordered.posts,
     branches: state.firestore.ordered.branches,
+    branchesToPost: state.firestore.data.branches,
   };
 };
 
